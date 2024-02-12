@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Handler</title>
+  <style>
+    body {
+      font-family: 'Minimil', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url(https://t4.ftcdn.net/jpg/04/60/71/01/360_F_460710131_YkD6NsivdyYsHupNvO3Y8MPEwxTAhORh.jpg);
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: row;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-image {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .login-image img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .login-form {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form p {
+      margin: 10px 0;
+      position: relative;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"],
+    input[type="checkbox"] {
+      width: calc(100% - 30px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      padding-left: 30px;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .warning-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .warning {
+      font-size: 12px;
+      color: red;
+      position: absolute;
+      top: -18px;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .error {
+      color: red;
+      margin-top: 5px;
+    }
+
+    .login-submit,
+    .register button {
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      flex: 1;
+    }
+
+    .login-submit {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .login-submit:hover {
+      background-color: #218838;
+    }
+
+    .forgot-password {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .register button {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .register button:hover {
+      background-color: #0056b3;
+    }
+
+    /* เพิ่ม CSS สำหรับ label */
+    .remember-me-label {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px; /* ระยะห่างระหว่าง "จดจำฉัน" กับ "Forgot your password?" */
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-image">
+      <img src="https://i.pinimg.com/736x/a5/0a/67/a50a6704336ade0fdb4b5a364df0b850.jpg" alt="คำอธิบายภาพ">
+    </div>
+    <div class="login-form">
+      <h1>Login</h1>
+      <form action="" id="loginForm">
+        <p class="input-field">
+          <span class="icon">&#x1F511;</span>
+          <input type="text" id="username" placeholder="Username" />
+          <div class="warning-container">
+            <span class="warning" id="usernameWarning"></span>
+          </div>
+        </p>
+        <p class="input-field">
+          <span class="icon">&#x1F512;</span>
+          <input type="password" id="password" placeholder="Password" />
+          <div class="warning-container">
+            <span class="warning" id="passwordWarning"></span>
+          </div>
+        </p>
+        <p class="error" id="errorPassword"></p>
+        <input type="submit" class="login-submit" value="Login" />
+      </form>
+      <div class="forgot-password">
+        <label for="rememberMe" class="remember-me-label"><input type="checkbox" id="rememberMe"> Remember me</label>
+      </div>
+      <div class="forgot-password">
+        <a href="#" id="forgotPassword">Forgot your password?</a>
+      </div>
+      <div class="register">
+        <button id="register">Register</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelector("form").onsubmit = function () {
+        let username = document.querySelector("#username").value;
+        let password = document.querySelector("#password").value;
+
+        let checkusername = username.length >= 8;
+        if (!checkusername) {
+          document.querySelector("#usernameWarning").textContent = "Username must be at least 8 characters.";
+          document.querySelector("#username").value = ""; // ลบข้อความที่ไม่ถูกต้อง
+        } else {
+          document.querySelector("#usernameWarning").textContent = "";
+        }
+
+        let checkpassword = password.length >= 8;
+        if (!checkpassword) {
+          document.querySelector("#passwordWarning").textContent = "Password must be at least 8 characters.";
+          document.querySelector("#password").value = ""; // ลบข้อความที่ไม่ถูกต้อง
+        } else {
+          document.querySelector("#passwordWarning").textContent = "";
+        }
+
+        return checkusername && checkpassword;
+      };
+
+      document.getElementById("forgotPassword").addEventListener("click", function () {
+        alert("Forgot Password clicked");
+        // สามารถเพิ่มโค้ดเพื่อทำการลืมรหัสที่นี่ได้
+      });
+
+      document.getElementById("register").addEventListener("click", function () {
+        alert("Register clicked");
+        // สามารถเพิ่มโค้ดเพื่อทำการสมัครสมาชิกที่นี่ได้
+      });
+    });
+  </script>
+</body>
+</html
